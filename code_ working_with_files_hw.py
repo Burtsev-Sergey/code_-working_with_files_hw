@@ -42,3 +42,46 @@ for dish, ingredients in cook_book.items():
 
 # Вывод структуры словаря cook_book
 # print(cook_book)
+
+print(f' \n')
+
+
+# Задача №2
+def get_shop_list_by_dishes(dishes, person_count):
+  list_of_ingredients_and_quantities = {}
+  
+  # Проходим по каждому блюду из списка
+  for dish in dishes:
+    # Проверка, существует ли блюдо в cook_book
+    if dish in cook_book:
+      # Проходим по каждому ингредиенту блюда
+      for ingredient in cook_book[dish]:
+        ingredient_name = ingredient['ingredient_name']
+        quantity = ingredient['quantity'] * person_count
+        measure = ingredient['measure']
+        # Проверка если ингредиент есть в списке, увеличиваем количество
+        if ingredient_name in list_of_ingredients_and_quantities:
+          list_of_ingredients_and_quantities[ingredient_name]['quantity'] += quantity
+        else:
+          # Проверка если ингредиента еще нет в списке, добавляем его
+          list_of_ingredients_and_quantities[ingredient_name] = {
+            'measure': measure,
+            'quantity': quantity
+          }
+    else:
+      print(f"Внимание!: '{dish}' блюдо отсутствует в cook_book.")
+  
+  # Определение порядка вывода списка ингредиентов
+  desired_order = ['Картофель', 'Молоко', 'Помидор', 'Сыр гауда', 'Яйцо', 'Чеснок']
+  
+  # Форматированная печать в установленном порядке
+  for ingredient in desired_order:
+    if ingredient in list_of_ingredients_and_quantities:
+      info = list_of_ingredients_and_quantities[ingredient]
+      print(f"'{ingredient}': {{'measure': '{info['measure']}', 'quantity': {info['quantity']}}}")
+
+
+# Вызов функции по примеру
+get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
+
+print(f' \n')
